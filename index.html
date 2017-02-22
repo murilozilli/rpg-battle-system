@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>Sistema de batalha v0.1</title>
+		<meta name="viewport" content="width=device-width">
+
+
+		<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="main.css">
+
+
+		<script src="jquery/dist/jquery.min.js"></script>
+		<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
+
+
+	</head>
+	<body>
+		<div class="container">
+			<h1>Sistema de batalha v0.1</h1>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div id='reinicie' style="display: none;">Recarregue a página para re-inserir os valores</div>
+					<form id="formMoral" onsubmit="return processaMoral();">
+						<div class="form-group">
+							<label for="terreno">Terreno</label>
+			            	<select id="terreno" name="terreno" class="form-control"<!--  data-rule-required="true" -->>
+			            		<option value="">Selecione</option>
+			            		<option value="planice">Planíce</option>
+			            		<option value="floresta">Floresta</option>
+			            		<option value="montes">Montes</option>
+			            		<option value="montanhas">Montanhas</option>
+			            	</select>
+		            	</div>
+
+		            	<div class="form-group">
+							<label for="clima">Clima</label>
+			            	<select id="clima_local" name="clima_local" class="form-control">
+			            		<option value="">Selecione</option>
+			            		<option value="artico">Ártico</option>
+			            		<option value="frio">Frio</option>
+			            		<option value="fresco">Fresco</option>
+			            		<option value="quente">Quente</option>
+			            		<option value="desertico">Desértico</option>
+			            	</select>
+		            	</div>
+
+		            	<div class="form-group">
+							<label for="distancia">Distância</label>
+			            	<select id="distancia" name="distancia" class="form-control">
+			            		<option value="">Selecione</option>
+			            		<option value="0">1T</option>
+			            		<option value="-5">2T</option>
+			            		<option value="-10">3T</option>
+			            		<option value="-15">4T ou mais</option>
+			            	</select>
+		            	</div>
+		            	<div class="row">
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">Atacante</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label for="terreno">Nome</label>
+							            	<input type="text" class="form-control" id="nomeAtacante" name="nomeAtacante" placeholder="Nome">
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Bônus GM</label>
+							            	<input type="number" max="30" class="form-control" id="bonus_atacante" name="bonus_atacante" placeholder="Máximo: 30%">
+						            	</div>
+						            	<div class="form-group">
+											<label for="clima">Clima</label>
+							            	<select id="clima_atacante" name="clima_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="artico">Ártico</option>
+							            		<option value="frio">Frio</option>
+							            		<option value="fresco">Fresco</option>
+							            		<option value="quente">Quente</option>
+							            		<option value="desertico">Desértico</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Lealdade</label>
+							            	<select id="lealdade_atacante" name="lealdade_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-30">Nível 1</option>
+							            		<option value="-15">Nível 2</option>
+							            		<option value="0">Nível 3</option>
+							            		<option value="15">Nível 4</option>
+							            		<option value="30">Nível 5</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Comandante</label>
+							            	<select id="comandante_atacante" name="comandante_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-15">Nível 1</option>
+							            		<option value="-5">Nível 2</option>
+							            		<option value="0">Nível 3</option>
+							            		<option value="5">Nível 4</option>
+							            		<option value="15">Nível 5</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Causa</label>
+							            	<select  id="causa_atacante" name="causa_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-10">Nível 1</option>
+							            		<option value="0">Nível 2</option>
+							            		<option value="10">Nível 3</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Emboscada</label>
+							            	<select  id="emboscada_atacante" name="emboscada_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="0">Sem</option>
+							            		<option value="10">Simples</option>
+							            		<option value="20">Complexa</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Tecnologia</label>
+							            	<select  id="tecnologia_atacante" name="tecnologia_atacante" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-1">Baixa Tecnologia</option>
+							            		<option value="0">Média Tecnologia</option>
+							            		<option value="1">Alta Tecnologia</option>
+							            	</select>
+						            	</div>
+						            	<div class="panel panel-default">
+											<div class="panel-heading">Exército</div>
+											<div class="panel-body">
+												<div class="panel panel-default">
+													<div class="panel-heading">Civis c/ armas</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_civil_atacante" name="infantaria_civil_atacante" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_civil_atacante" name="lanceiro_civil_atacante" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_civil_atacante" name="arqueiro_civil_atacante" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_civil_atacante" name="cavalaria_civil_atacante" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+												<div class="panel panel-default">
+													<div class="panel-heading">Soldado padrão</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_padrao_atacante" name="infantaria_padrao_atacante" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_padrao_atacante" name="lanceiro_padrao_atacante" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_padrao_atacante" name="arqueiro_padrao_atacante" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_padrao_atacante" name="cavalaria_padrao_atacante" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+												<div class="panel panel-default">
+													<div class="panel-heading">Unidades de elite</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_elite_atacante" name="infantaria_elite_atacante" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_elite_atacante" name="lanceiro_elite_atacante" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_elite_atacante" name="arqueiro_elite_atacante" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_elite_atacante" name="cavalaria_elite_atacante" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+											</div>
+										</div>
+					            	</div>
+				            	</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel panel-default">
+									<div class="panel-heading">Defensor</div>
+									<div class="panel-body">
+										<div class="form-group">
+											<label for="terreno">Nome</label>
+							            	<input type="text" class="form-control" id="nomeDesenfor" name="nomeDesenfor" placeholder="Nome">
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Bônus GM</label>
+							            	<input type="number" max="30" class="form-control" id="bonus_defensor" name="bonus_defensor" placeholder="Máximo: 30%">
+						            	</div>
+						            	<div class="form-group">
+											<label for="clima">Clima</label>
+							            	<select id="clima_defensor" name="clima_defensor" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="artico">Ártico</option>
+							            		<option value="frio">Frio</option>
+							            		<option value="fresco">Fresco</option>
+							            		<option value="quente">Quente</option>
+							            		<option value="desertico">Desértico</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Lealdade</label>
+							            	<select  id="lealdade_defensor" name="lealdade_defensor"  class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-30">Nível 1</option>
+							            		<option value="-15">Nível 2</option>
+							            		<option value="0">Nível 3</option>
+							            		<option value="15">Nível 4</option>
+							            		<option value="30">Nível 5</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Comandante</label>
+							            	<select  id="comandante_defensor" name="comandante_defensor" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-15">Nível 1</option>
+							            		<option value="-5">Nível 2</option>
+							            		<option value="0">Nível 3</option>
+							            		<option value="5">Nível 4</option>
+							            		<option value="15">Nível 5</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Causa</label>
+							            	<select  id="causa_defensor" name="causa_defensor" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-10">Nível 1</option>
+							            		<option value="0">Nível 2</option>
+							            		<option value="10">Nível 3</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Emboscada</label>
+							            	<select  id="emboscada_defensor" name="emboscada_defensor" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="0">Sem</option>
+							            		<option value="10">Simples</option>
+							            		<option value="20">Complexa</option>
+							            	</select>
+						            	</div>
+						            	<div class="form-group">
+											<label for="terreno">Tecnologia</label>
+							            	<select  id="tecnologia_defensor" name="tecnologia_defensor" class="form-control">
+							            		<option value="">Selecione</option>
+							            		<option value="-1">Baixa Tecnologia</option>
+							            		<option value="0">Média Tecnologia</option>
+							            		<option value="1">Alta Tecnologia</option>
+							            	</select>
+						            	</div>
+						            	<div class="panel panel-default">
+											<div class="panel-heading">Exército</div>
+											<div class="panel-body">
+												<div class="panel panel-default">
+													<div class="panel-heading">Civis c/ armas</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_civil_defensor" name="infantaria_civil_defensor" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_civil_defensor" name="lanceiro_civil_defensor" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_civil_defensor" name="arqueiro_civil_defensor" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_civil_defensor" name="cavalaria_civil_defensor" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+												<div class="panel panel-default">
+													<div class="panel-heading">Soldado padrão</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_padrao_defensor" name="infantaria_padrao_defensor" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_padrao_defensor" name="lanceiro_padrao_defensor" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_padrao_defensor" name="arqueiro_padrao_defensor" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_padrao_defensor" name="cavalaria_padrao_defensor" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+												<div class="panel panel-default">
+													<div class="panel-heading">Unidades de elite</div>
+													<div class="panel-body">
+														<div class="form-group">
+															<label for="terreno">Infantaria</label>
+											            	<input type="number" class="form-control" id="infantaria_elite_defensor" name="infantaria_elite_defensor" placeholder="Numero de infantaria">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Lanceiros</label>
+											            	<input type="number" class="form-control" id="lanceiro_elite_defensor" name="lanceiro_elite_defensor" placeholder="Numero de lanceiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Arqueiros</label>
+											            	<input type="number" class="form-control" id="arqueiro_elite_defensor" name="arqueiro_elite_defensor" placeholder="Numero de arqueiros">
+										            	</div>
+										            	<div class="form-group">
+															<label for="terreno">Cavalaria</label>
+											            	<input type="number" class="form-control" id="cavalaria_elite_defensor" name="cavalaria_elite_defensor" placeholder="Numero de cavaleiros">
+										            	</div>
+													</div>
+												</div>
+											</div>
+										</div>
+					            	</div>
+				            	</div>
+							</div>
+						</div>
+
+			            <div class="text-center">
+			        		<button class="btn btn-primary" type="submit">Rodar dados</button>
+			        	</div>
+					</form>
+				</div>
+				<div class="col-md-2"></div>
+				<!-- <div class="col-md-6">
+
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<tbody>
+								<tr>
+						          <th>Nome</th>
+						            <td id="nomeAtacante"></td>
+						            <td></td>
+						            <td></td>
+						        </tr>
+						        <tr>
+						          <th>Terreno</th>
+						            <td id="nomeAtacante"></td>
+						            <td></td>
+						            <td></td>
+						        </tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<button class="btn btn-success" id="dadoB" onclick="rolaDado('B');">Rolar dado time B</button>
+
+				</div> -->
+			</div>
+
+		</div>
+	</body>
+	<script src="script.js"></script>
+</html>
